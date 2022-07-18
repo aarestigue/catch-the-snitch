@@ -52,65 +52,21 @@ class Component {
 }
 
 class Snitch extends Component {
-    constructor(width, height, color, x, y, ctx, gravity){
+    constructor(width, height, color, x, y, ctx){
         super(width, height, color, x, y, ctx);
-
-        this.gravity = 0.5;
-        this.ctx = ctx; 
-        this.x = x;
-        this.y = y;
-        this.speedX = 2;
-        this.speedY = 2;
         
     }
 
-    newPos(){
-        /* this.x = (this.x + this.speedX) % 1000;
-        this.y = (this.y + this.speedY) % 500; */
-        this.x += this.speedX;
-        this.y += this.speedY;
+    draw() {
+        const img = new Image();
+        img.addEventListener('load', function(){
+        ctx.drawImage (img, this.x, this.y, 50, 50);
+        })
+    img.src = "./docs/assets/images/final_snitch.png"; 
+    
+    
+    } 
     }
 
-}
 
 
-
-
-
-
-
-    /* updateSnitch() {
-        
-        ctx.clearRect(0, 0, this.ctx.width, this.ctx.height);
-        
-        snitch.draw();
-    
-        this.snitch.x -= 1; */
-        /* this.speedY += this.gravity;
-        this.x += this.speedX;
-        this.y += this.speedY; */
-    
-        /* this.frames += 1;
-    
-    if (this.frames % 30 === 0){ /* to increanse/decrease speed of obstacle 1 second = 60 fps */
-    
-    
-    /* let minX = 20;
-    let maxX = 900;
-    
-    let newX = Math.floor(Math.random()* (maxX - minX + 1)+ minX);
-    
-    let minY = 20;
-    let maxY = 500;
-    
-    let newY = Math.floor(Math.random()* (maxY - minY + 1)+ minY); 
-    
-    
-    if (this.y + this.speedY > this.ctx.height || this.y + this.speedY < 0) {
-            this.speedY *= -1;
-          }
-    if (this.x + this.speedX > canvas.width || this.x + this.speedX < 0) {
-            this.speedX *= -1;
-          } */
-      
-  

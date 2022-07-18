@@ -31,6 +31,18 @@ startBtn.addEventListener('click', () => {
     
 })
 
+const resetBtn = document.getElementById('reset');
+
+resetBtn.addEventListener('click', () => {
+    if (game && game.isRunning){
+        game.stop();
+        game = new Game (ctx, cWitdh, cHeight, player);
+        game.start();
+    }
+    
+})
+
+
 /* Event listener for when we PRESS the key */
 document.addEventListener('keydown', (e) => { /* keydown - when someone clicks a key */
     switch (e.code){ /* code - is a property of events (e) */
