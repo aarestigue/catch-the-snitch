@@ -1,12 +1,65 @@
 body {
-    background-color: rgb(61, 64, 61);
-
+   background-image: url(./docs/assets/images/pattern.jpeg);
+   background-size:100vw;
 
 }
 
 #canvas {
     
     background-image: url(./docs/assets/images/Quiditch_field.jpeg);
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 120px;
+    margin-top: 68px;
+   
+   
+   
+    border-radius: 10px;
+
+   
     
+    
+}
+
+.main {
+    width: 1200px;
+    height: 700px;
+    background-image: url(./docs/assets/images/frame.png);
+    
+    
+    margin-top:  10px;;
+    margin-left: 50px;
+   
+    
+
+}
+
+#header {
+   
+    display: flex;
+	flex-direction: row;
+    margin-left: 70px;
+
+    align-content: center;
+    
+	
+    
+}
+
+#start {
+
+    border-radius: 10px;
+    border: 10px 10px 10px 10px;
+    border-color: gold;
+    
+   
+    padding: 15px 40px 10px 40px;
+    background-image: url(./docs/assets/images/pattern.jpeg);
+    font-family:fantasy;
+    font-weight: bolder;
+    font-size: 24px;;
+    color: rgb(232, 191, 79);
+    margin-left: 410px;
+    margin-top:  50px;
 }
 

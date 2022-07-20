@@ -1,13 +1,17 @@
 class Component {
-    constructor(width, height, color, x, y, ctx){
+    constructor(width, height, src, x, y, ctx){
         this.width = width;
         this.height = height;
-        this.color = color;
+        
         this.x = x;
         this.y = y;
         this.ctx = ctx; 
         this.speedX = 0;
-        this.speedY = 2;
+        this.speedY = 0;
+        const img = new Image();
+        img.addEventListener('load', () => {})
+        img.src = src; 
+        this.img = img;
     }
 
     /* Acceleration */
@@ -20,8 +24,7 @@ class Component {
     }
 
     draw(){
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
     /* collitions */
@@ -51,22 +54,35 @@ class Component {
     }
 }
 
-class Snitch extends Component {
-    constructor(width, height, color, x, y, ctx){
-        super(width, height, color, x, y, ctx);
+class Messages {
+    constructor(text, font,  x, y, ctx){
         
+        
+        this.x = x;
+        this.y = y;
+        this.ctx = ctx; 
+        this.speedX = 1;
+        this.speedY = 1;
+        this.text = text;
+        this.font = font;
     }
 
-    draw() {
-        const img = new Image();
-        img.addEventListener('load', function(){
-        ctx.drawImage (img, this.x, this.y, 50, 50);
-        })
-    img.src = "./docs/assets/images/final_snitch.png"; 
-    
-    
-    } 
+    newPos(){
+        
+        this.x += this.speedX;
+        this.y -= this.speedY;
     }
+
+    draw(){
+        ctx.font = this.font; 
+        ctx.fillText(this.text, this.x, this.y);
+        
+    } 
+
+}  
+
+
+
 
 
 

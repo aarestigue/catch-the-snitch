@@ -6,12 +6,13 @@ const cWitdh = canvas.width;
 const cHeight = canvas.height; 
 
 
-const player = new Component(50, 50, 'red', 0, 110, ctx);
+const player = new Component(70, 70, './docs/assets/images/griffyndor_seeker.png', 450, 300, ctx);
 
 
 
 /* Creating the game */
 let game;
+let enemies; 
 
 
 /* start game with button */
@@ -36,6 +37,8 @@ const resetBtn = document.getElementById('reset');
 resetBtn.addEventListener('click', () => {
     if (game && game.isRunning){
         game.stop();
+        game.clear();
+        game.reset();
         game = new Game (ctx, cWitdh, cHeight, player);
         game.start();
     }
@@ -47,21 +50,21 @@ resetBtn.addEventListener('click', () => {
 document.addEventListener('keydown', (e) => { /* keydown - when someone clicks a key */
     switch (e.code){ /* code - is a property of events (e) */
         case 'ArrowUp' :
-            player.speedY -=2;
+            player.speedY -=1.5;
             break;
         case 'ArrowDown' :
-            player.speedY +=2;
+            player.speedY +=1.5;
             break;
         case 'ArrowRight' :
-            player.speedX +=2;
+            player.speedX +=1.5;
             break;
         case 'ArrowLeft' :
-            player.speedX -=2;
+            player.speedX -=1.5;
             break;
     }
 })
 
-/* Event listener for when STOP PRESSING the key */
+
 document.addEventListener('keyup', (e) => {
     player.speedX = 0;
     player.speedY = 0
