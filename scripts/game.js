@@ -18,6 +18,7 @@ class Game {
         this.obstacles = [];
         this.playerEnergy = [];
         this.playerMagic = [];
+        this.magicBonus = [];
         
 
         this.enemyPlayer = null;
@@ -46,7 +47,7 @@ start = () => {
     
     this.enemyPlayer = new Component(70, 70,'docs/assets/images/slytherin_player.png', Math.floor(Math.random() * this.width) ,Math.floor( Math.random() * this.height), this.ctx)
     this.createEnergy();
-    this.createMagic();
+    /* this.createMagic(); */
 
     if (this.difficulty === 1){
         console.log('dementor');
@@ -104,23 +105,66 @@ updateEnergy(){
 
 /* MAGIC */
 
+getMagic(){
+
+    if (this.difficulty === 1){
+    for (let h = 0; h < this.magicBonus.length; h++){
+        this.magicBonus[h].x -= 0;
+        this.magicBonus[h].y += 3; 
+        this.magicBonus[h].draw();
+    }
+    
+
+    if (this.frames % 360 === 0){ 
+        let x = this.width;
+        let minX = 20;
+        let maxX = 450;
+        let newX = Math.floor(Math.random()* (maxX - minX + 1)+ minX);
+
+        let minY = 20;
+        let maxY = 500;
+
+        let newY = Math.floor(Math.random()* (maxY - minY + 1)+ minY); 
+
+        this.magicBonus.shift();
+        this.magicBonus.push (new Component(30, 30, 'docs/assets/images/magicb.png', newX , 0, this.ctx));
+        
+        
+    }
+  }
+} 
+
 createMagic(){
-    this.playerMagic.push( new Component (40, 30, 'docs/assets/images/magic.png', 650, 90, this.ctx))
 
-    this.playerMagic.push(new Component (40, 30, 'docs/assets/images/magic.png', 670, 90, this.ctx))
+    if (this.difficulty === 1){
+
+    let x = 650;
+    let newX = x + this.playerMagic.length;
+        
+    this.playerMagic.push( new Component (40, 30, 'docs/assets/images/magicb.png', newX, 110, this.ctx))
+
+   /*  this.playerMagic.push(new Component (40, 30, 'docs/assets/images/magicb.png', x, 110, this.ctx))
 
 
-    this.playerMagic.push(new Component (40, 30, 'docs/assets/images/magic.png', 690, 90, this.ctx))
+    this.playerMagic.push(new Component (40, 30, 'docs/assets/images/magicb.png', 690, 110, this.ctx)) */
 
+    
+    }
+
+    else {
+
+    }
 }
 
 updateMagic(){
+
+    if (this.difficulty === 1){
     this.playerMagic.forEach((magic) => {
         magic.draw()
     })
 }
 
-
+}
 /* BONUS*/
 
 updateBonus(){
@@ -131,7 +175,7 @@ updateBonus(){
     }
     
 
-    if (this.frames % 240 === 0){ 
+    if (this.frames % 560 === 0){ 
         let x = this.width;
         let minX = 20;
         let maxX = 900;
@@ -294,20 +338,20 @@ results = () => {
         
         this.ctx.font = '24px  sans-serif';
         this.ctx.fillStyle = 'black';
-        this.ctx.fillText(`You won!`, 450, 300);
+        this.ctx.fillText(`You won!`, 350, 250);
         console.log('you won');
     }
 
     else if (!this.isRunning && this.points < this.enemyPoints) {
         this.ctx.font = '24px sans-serif';
         this.ctx.fillStyle = 'black';
-        this.ctx.fillText(`You lost!`, 450, 300);
+        this.ctx.fillText(`You lost!`, 350, 250);
     }
 
     else if (!this.isRunning && this.points === this.enemyPoints) {
         this.ctx.font = '24px sans-serif';
         this.ctx.fillStyle = 'black';
-        this.ctx.fillText(`it's a tie!`, 450, 300);
+        this.ctx.fillText(`it's a tie!`, 350, 250);
     }
 
     
@@ -343,9 +387,9 @@ playerScore = () => {
             
             this.points += 150;
             this.snitchCatched = true;
-            this.ctx.font = '20px sans-serif';
+            this.ctx.font = '16px sans-serif';
             this.ctx.fillStyle = 'black';
-            this.ctx.fillText(`You catched the snitch!`, 450, 50);
+            this.ctx.fillText(`You catched the snitch!`, 400, 50);
 
             }
 
@@ -360,7 +404,7 @@ playerScore = () => {
         }
         
 
-    this.ctx.font = '20px sans-serif';
+    this.ctx.font = '16px sans-serif';
     this.ctx.fillStyle = 'black';
     this.ctx.fillText(`My Score: ${this.points}`, 50, 50);
     
@@ -370,7 +414,7 @@ playerScore = () => {
 enemyScore (){
     const enemyPoints = (Math.floor(this.frames/(60*2)))*10;
 
-    this.ctx.font = '20px sans-serif';
+    this.ctx.font = '16px sans-serif';
     this.ctx.fillStyle = 'black';
     this.ctx.fillText(`Enemy Score: ${enemyPoints}`, 200, 50);
 
@@ -404,6 +448,23 @@ checkSeeker = () => {
     
 }
 
+checkMagicBonus = () => {
+
+    const magicCatched = this.magicBonus.some((magic) => { 
+        return this.player.crashWith(magic);
+        
+        });
+
+        if (magicCatched) {
+            console.log('catched magic')
+            this.createMagic();
+            this.updateMagic();
+
+            this.player.x= 200;
+            this.player.y=300;
+        }
+
+    }
 
 
 /* TIMER */
@@ -416,9 +477,9 @@ gameTimer () {
 
     
 
-    this.ctx.font = '24 sans-serif';
+    this.ctx.font = '20 sans-serif';
     this.ctx.fillStyle = 'black';
-    this.ctx.fillText(`Timer: ${seconds}`, 750, 50);
+    this.ctx.fillText(`Timer: ${seconds}`, 600, 50);
 
     if (seconds === 0){
         this.timer = 0;
@@ -458,12 +519,16 @@ updateGameArea = () => {
     this.updateDementor();
     this.updateEnemy();
     this.updateBonus();
+    this.getMagic();
+    
     this.updateEnergy();
-    /* this.drawEnergy(); */
     this.updateSnitch();
+    this.updateMagic();
+
     this.checkMessages()
     this.checkSeeker();
     this.checkGameOver();
+    this.checkMagicBonus();
     this.displayResults();
     this.player.newPos();
     this.player.draw ();
