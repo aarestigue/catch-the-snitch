@@ -18,17 +18,12 @@ let game;
 
 let audioTag = new Audio ("./docs/assets/sounds/mainSound.mp3")
     
-window.addEventListener('load', () => {
-    
+window.onload =  () => {
     if (!game) {
-    
     audioTag.play();
     audioTag.loop = true;
-    
-    }
-
-    
-})
+    }   
+}
 
 
 /* start game with button */

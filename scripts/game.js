@@ -17,9 +17,11 @@ class Game {
         this.goalBonus = [];
         this.obstacles = [];
         this.playerEnergy = [];
+        this.playerMagic = [];
         
 
         this.enemyPlayer = null;
+        this.dementor = null;
         this.snitch = null;
         this.interval = null;
         this.playerHasEnergy = false;
@@ -41,8 +43,15 @@ start = () => {
     this.playerHasEnergy = true;
     this.isRunning = true;
     /* this.snitch = new Component(40, 40,'docs/assets/images/final_snitch.png', Math.floor(Math.random() * this.width) ,Math.floor( Math.random() * this.height), this.ctx) */
+    
     this.enemyPlayer = new Component(70, 70,'docs/assets/images/slytherin_player.png', Math.floor(Math.random() * this.width) ,Math.floor( Math.random() * this.height), this.ctx)
     this.createEnergy();
+    this.createMagic();
+
+    if (this.difficulty === 1){
+        console.log('dementor');
+        this.dementor =  new Component(70, 70,'docs/assets/images/dementor.png', 100, 100, this.ctx)  
+    }
     
     }
     
@@ -75,14 +84,15 @@ stop () {
 /* To create Obstacles */   
 
 
-/* Energy */
+/* ENERGY */
+
 createEnergy(){
-    this.playerEnergy.push( new Component (40, 30, 'docs/assets/images/bolt.png', 790, 70, this.ctx))
+    this.playerEnergy.push( new Component (40, 30, 'docs/assets/images/bolt.png', 650, 70, this.ctx))
 
-    this.playerEnergy.push(new Component (40, 30, 'docs/assets/images/bolt.png', 820, 70, this.ctx))
+    this.playerEnergy.push(new Component (40, 30, 'docs/assets/images/bolt.png', 670, 70, this.ctx))
 
 
-    this.playerEnergy.push(new Component (40, 30, 'docs/assets/images/bolt.png', 850, 70, this.ctx))
+    this.playerEnergy.push(new Component (40, 30, 'docs/assets/images/bolt.png', 690, 70, this.ctx))
 
 }
 
@@ -91,17 +101,37 @@ updateEnergy(){
         energy.draw()
     })
 }
-/* Bonus points*/
+
+/* MAGIC */
+
+createMagic(){
+    this.playerMagic.push( new Component (40, 30, 'docs/assets/images/magic.png', 650, 90, this.ctx))
+
+    this.playerMagic.push(new Component (40, 30, 'docs/assets/images/magic.png', 670, 90, this.ctx))
+
+
+    this.playerMagic.push(new Component (40, 30, 'docs/assets/images/magic.png', 690, 90, this.ctx))
+
+}
+
+updateMagic(){
+    this.playerMagic.forEach((magic) => {
+        magic.draw()
+    })
+}
+
+
+/* BONUS*/
 
 updateBonus(){
     for (let h = 0; h < this.goalBonus.length; h++){
-        this.goalBonus[h].x -= 2;
-        this.goalBonus[h].y -= 3; 
+        this.goalBonus[h].x -= 0;
+        this.goalBonus[h].y += 3; 
         this.goalBonus[h].draw();
     }
     
 
-    if (this.frames % 180 === 0){ 
+    if (this.frames % 240 === 0){ 
         let x = this.width;
         let minX = 20;
         let maxX = 900;
@@ -113,7 +143,7 @@ updateBonus(){
         let newY = Math.floor(Math.random()* (maxY - minY + 1)+ minY); 
 
         this.goalBonus.shift();
-        this.goalBonus.push (new Component(30, 30, 'docs/assets/images/quiditch_ball.png', newX , newY, this.ctx));
+        this.goalBonus.push (new Component(30, 30, 'docs/assets/images/quiditch_ball.png', newX , 0, this.ctx));
         
         
     }
@@ -172,6 +202,8 @@ updateSnitch () {
 updateEnemy () {
     /* To move and draw the obstacles */
 
+/* EXPERT LEVEL */
+
     if (this.difficulty=== 1) {
         console.log('expert');
         //horizontal
@@ -189,6 +221,8 @@ updateEnemy () {
 
         this.enemyPlayer.draw();
     }
+
+ /* BEGINNER LEVEL */   
 
     else if (this.difficulty===0) {
 
@@ -213,6 +247,34 @@ updateEnemy () {
 }
 }
 
+updateDementor (){
+
+    /* EXPERT LEVEL */
+    if (this.difficulty === 1){
+
+        //horizontal
+        if(this.dementor.x < this.player.x) {
+            this.dementor.x += 0.5;
+        } else {
+            this.dementor.x -= 0.5;
+        }
+        //vertically
+        if(this.dementor.y < this.player.y) {
+            this.dementor.y += 0.5;
+        } else {
+            this.dementor.y -= 0.5;
+        }
+
+        this.dementor.draw();
+    }
+
+    /* BEGINNER LEVEL */
+
+    else {
+       
+    }
+    
+}
 
 
 
@@ -393,7 +455,7 @@ updateGameArea = () => {
     this.playerScore();
     this.gameTimer();
     
-
+    this.updateDementor();
     this.updateEnemy();
     this.updateBonus();
     this.updateEnergy();
