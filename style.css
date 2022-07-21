@@ -4,36 +4,57 @@ body {
 
 }
 
+/* CANVAS */
+
 #canvas {
     
-    background-image: url(./docs/assets/images/Quiditch_field.jpeg);
+    
     padding-left: 0px;
     padding-right: 0px;
-    margin-left: 120px;
-    margin-top: 68px;
+    margin-left: 50px;
+    margin-top: 35px;
+
+    font-family: fantasy;
    
    
    
     border-radius: 10px;
 
-   
-    
-    
+}
+
+.main .overlay {
+ width: 850;
+ height: 400px;
+ background-color: rgb(0, 0, 0);
+}
+
+.main .first-background {
+
+    background-image: url(./docs/assets/images/home_background.jpg);
+    opacity: 1;
+
+}
+
+.main .second-background {
+ 
+    background-image: url(./docs/assets/images/Quiditch_field.jpeg);
+
 }
 
 .main {
-    width: 1200px;
-    height: 700px;
-    background-image: url(./docs/assets/images/frame.png);
+    width: 910px;
+    height: 535px;
+    background-image: url(./docs/assets/images/frameb.png);
     
     
     margin-top:  10px;;
     margin-left: 50px;
-   
+    color: white;
     
 
 }
 
+/* HEADER */
 #header {
    
     display: flex;
@@ -46,7 +67,33 @@ body {
     
 }
 
-#start {
+/* MENU */
+
+#menu {
+
+    color: white;
+}
+
+#popUp {
+
+width: 200px;
+height: 250px;
+background-color: grey;
+font-family: fantasy;
+border-radius: 15px;
+
+position: fixed;
+top: 450px;
+left: 400px;
+} 
+
+/* BUTTONS */
+
+.hidden {
+    visibility: hidden;
+}
+
+.matrix__button {
 
     border-radius: 10px;
     border: 10px 10px 10px 10px;
@@ -57,9 +104,49 @@ body {
     background-image: url(./docs/assets/images/pattern.jpeg);
     font-family:fantasy;
     font-weight: bolder;
-    font-size: 24px;;
+    font-size: 22px;
     color: rgb(232, 191, 79);
-    margin-left: 410px;
+    margin-left: 100px;
     margin-top:  50px;
 }
 
+.popUp__button {
+    margin-left: 0px;
+    margin-top:  15px;
+    margin-bottom: 10px;
+    padding: 10px 15px 10px 15px;
+
+    border-radius: 10px;
+    border: 10px 10px 10px 10px;
+    border-color: gold;
+
+    background-image: url(./docs/assets/images/pattern.jpeg);
+    font-family:fantasy;
+    font-weight: bolder;
+    font-size: 20px;
+    color: rgb(232, 191, 79);
+
+    
+}
+
+
+
+/* ranking */
+
+#game .ranking {
+
+    width: 200px;
+    padding-left: 20px;
+
+}
+
+/* GAME */
+
+#game {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    
+    color: white;
+  
+}

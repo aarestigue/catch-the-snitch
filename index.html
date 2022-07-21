@@ -7,29 +7,66 @@
     <link rel="stylesheet" href="style.css">
     <title>Catch the snitch!</title>
 </head>
-<body>
+<body class="matrix">
     <div id ="header">
         <h1>
             <img id= "main_title" src="./docs/assets/images/main_title.png" alt="title_catch_the_snitch">
         </h1>
-        <span>
-            <button id="start">START</button>
-        </span>
-        
+
     </div>
     
-    
-    <div class = "main">
-        
-        
-        <!-- <button id="reset">Play again</button> -->
-        
-        <canvas id="canvas" width="950" height="550" style="border: 2px solid black"> 
-        </canvas>
-        
+    <div id="menu" class="menu">
+        <label for="player_name" class="body_text">Enter your name</label>
+        <input id="player_name"  type="text" placeholder="Seeker's name">
+        <button id="start" class="matrix__button">START</button>
+        <button id="ranking" class="matrix__button"> RANKING</button>
+       <!--  <button id="pause" class="matrix__button">PAUSE</button> -->
+        <button id="level" class="matrix__button" class="hidden" name="level">LEVEL</button>
+
+
     </div>
+
+    <div id="game">
+       <section class = "main">
+        
+            <canvas id="canvas" class="first-background" width="800" height="450" style="border: 2px solid black"> 
+                <div class="overlay"></div>
+            </canvas>
+        </section>
+           
+        
+    
+    <!-- LEVEL POP UP -->
+    
+    <div id="popUp" class="hidden">   
+    <ul>
+        <h4>Choose your level</h4>
+        <button id="beginner" class="popUp__button">Beginner</button>
+        <button id="expert" class="popUp__button" >Expert</button>
+    </ul>
+    </div>  
+
+    <!-- RANKING POP UP -->
+
+    <div id="ranking" class="nothidden">   
+        <ul>
+            <h4>Ranking</h4>
+            <button id="hide_ranking" class="popUp__button">Hide ranking</button>
+            
+        </ul>
+        </div> 
+       
+            
+       
+    </div>
+    
+        
+
+
+        
+    
    
-    <script src="./scripts/obstacles.js"></script>
+    
     <script src="./scripts/game.js"></script>
     <script src="./scripts/components.js"></script>
     <script src="./scripts/main.js"></script>
