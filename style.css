@@ -1,5 +1,5 @@
 body {
-   background-image: url(./docs/assets/images/pattern.jpeg);
+   background-image: url(./docs/assets/images/background4.jpeg);
    background-size:100vw;
 
 }
@@ -11,13 +11,14 @@ body {
     
     padding-left: 0px;
     padding-right: 0px;
-    margin-left: 50px;
-    margin-top: 35px;
+    margin-left: 55px;
+    margin-top: 42px;
 
     font-family: fantasy;
     border-radius: 10px;
 
 }
+
 
 .main .overlay {
  width: 850;
@@ -27,7 +28,7 @@ body {
 
 .main .first-background {
 
-    background-image: url(./docs/assets/images/home_background.jpg);
+    background-image: url(./docs/assets/images/Home1.jpeg);
     opacity: 1;
 
 }
@@ -38,13 +39,15 @@ body {
 
 }
 
+/* CANVAS BLOCK */
+
 .main {
     width: 910px;
     height: 535px;
     background-image: url(./docs/assets/images/frameb.png);
     
     
-    margin-top:  10px;;
+    margin-top:  20px;;
     margin-left: 50px;
     color: white;
     
@@ -77,13 +80,17 @@ body {
 
 width: 200px;
 height: 250px;
-background-color: grey;
+background-color: rgba(49, 45, 34, 0.7);
 font-family: fantasy;
 border-radius: 15px;
 
+font-size: 16px;
+color: black;
+
+
 position: fixed;
-top: 450px;
-left: 400px;
+top: 40vh;
+left: 35vw;
 } 
 
 /* BUTTONS */
@@ -106,10 +113,10 @@ left: 400px;
     /* background-image: url(./docs/assets/images/pattern.jpeg); */
     font-family:fantasy;
     font-weight: bolder;
-    font-size: 22px;
+    font-size: 20px;
     color: rgb(232, 191, 79);
     margin-left: 100px;
-    margin-top:  50px;
+    margin-top:  20px;
 }
 
 .popUp__button {
@@ -122,11 +129,12 @@ left: 400px;
     border: 10px 10px 10px 10px;
     border-color: gold;
 
-    background-image: url(./docs/assets/images/pattern.jpeg);
+    
+    background-image: url(./docs/assets/images/Home1.jpeg);
     font-family:fantasy;
     font-weight: bolder;
     font-size: 20px;
-    color: rgb(232, 191, 79);
+    color: rgb(49, 46, 38);
 
     
 }
