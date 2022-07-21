@@ -15,9 +15,6 @@ body {
     margin-top: 35px;
 
     font-family: fantasy;
-   
-   
-   
     border-radius: 10px;
 
 }
@@ -98,10 +95,13 @@ left: 400px;
     border-radius: 10px;
     border: 10px 10px 10px 10px;
     border-color: gold;
+
+    background-color: black;
+    opacity: 0.6;
     
    
     padding: 15px 40px 10px 40px;
-    background-image: url(./docs/assets/images/pattern.jpeg);
+    /* background-image: url(./docs/assets/images/pattern.jpeg); */
     font-family:fantasy;
     font-weight: bolder;
     font-size: 22px;

@@ -37,12 +37,12 @@ const startBtn = document.getElementById('start');
 
 startBtn.addEventListener('click', () => {
     if (!game){
-/* toggle example for the background         
-canvas.classList.remove('first-background')
-        canvas.classList.add('second-background') */
+
         game = new Game (ctx, cWidth, cHeight, player);
         game.start();
         audioTag.pause();
+        canvas.classList.remove('first-background');
+        canvas.classList.add('second-background');
 
         
         
@@ -79,16 +79,19 @@ levelBtn.addEventListener('click', () => {
 });
 
 const beginnerBtn = document.getElementById('beginner');
+let difficulty = 0;
 
 beginnerBtn.addEventListener('click', () => {
     const element = document.getElementById('popUp');
     element.classList.toggle('hidden');
+
+    difficulty = 0; 
     
     ctx.font = '24px fantasy';
     ctx.fillStyle = 'black';
     ctx.fillText(`You chose beginner level!`, 280, 80);
 
-    console.log('beginner level');
+    
 });
 
 const expertBtn = document.getElementById('expert');
@@ -97,11 +100,13 @@ expertBtn.addEventListener('click', () => {
     const element = document.getElementById('popUp');
     element.classList.toggle('hidden');
 
+    difficulty = 1;
+
     ctx.font = '24px fantasy';
     ctx.fillStyle = 'black';
     ctx.fillText(`You chose expert level!`, 280, 80);
 
-    console.log('expert level');
+    
 
 });
 

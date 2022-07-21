@@ -25,6 +25,7 @@ class Game {
         this.playerHasEnergy = false;
         this.snitchCatched = false;
         this.isRunning = false;
+        this.difficulty = difficulty;
 
         this.message = ''
         this.messageTimer = 0;
@@ -170,6 +171,28 @@ updateSnitch () {
 
 updateEnemy () {
     /* To move and draw the obstacles */
+
+    if (this.difficulty=== 1) {
+        console.log('expert');
+        //horizontal
+        if(this.enemyPlayer.x < this.player.x) {
+            this.enemyPlayer.x += 1.2;
+        } else {
+            this.enemyPlayer.x -= 1;
+        }
+        //vertically
+        if(this.enemyPlayer.y < this.player.y) {
+            this.enemyPlayer.y += 1.5;
+        } else {
+            this.enemyPlayer.y -= 1.2;
+        }
+
+        this.enemyPlayer.draw();
+    }
+
+    else if (this.difficulty===0) {
+
+        console.log('easy');
     
         //horizontal
         if(this.enemyPlayer.x < this.player.x) {
@@ -187,6 +210,7 @@ updateEnemy () {
         this.enemyPlayer.draw();
     
 
+}
 }
 
 
