@@ -12,8 +12,6 @@ class Game {
         this.height = height;
 
         this.player = player;
-        
-
         this.goalBonus = [];
         this.obstacles = [];
         this.playerEnergy = [];
@@ -29,6 +27,7 @@ class Game {
         this.snitchCatched = false;
         this.isRunning = false;
         this.difficulty = difficulty;
+        this.playerDirection = playerDirection;
 
         this.message = ''
         this.messageTimer = 0;
@@ -45,7 +44,7 @@ start = () => {
     this.isRunning = true;
     /* this.snitch = new Component(40, 40,'docs/assets/images/final_snitch.png', Math.floor(Math.random() * this.width) ,Math.floor( Math.random() * this.height), this.ctx) */
     
-    this.enemyPlayer = new Component(70, 70,'docs/assets/images/slytherin_player.png', Math.floor(Math.random() * this.width) ,Math.floor( Math.random() * this.height), this.ctx)
+    this.enemyPlayer = new Component(70, 70,'docs/assets/images/slytherin_player.png', 400 , 200, this.ctx)
     this.createEnergy();
     /* this.createMagic(); */
 
@@ -198,29 +197,29 @@ updateBonus(){
 
 updateSnitch () {
 
-    /* this.snitch.speedX *= 1.1;
-    this.snitch.speedY *= 0.9;
-
-    //horizontal
-    if(this.snitch.x < 20) {
-        this.snitch.x += 0.5;
-    } else if (this.snitch.x > 900) {
-        this.snitch.x -= 0.5;
-    }
-
-    //vertically
-    if(this.snitch.y < 50) {
-        this.snitch.y += 0.4;
-    } else {
-        this.snitch.y -= 0.4;
-    }
-
-    this.snitch.draw(); */
     
-    /* To move and draw the obstacles */
      for (let j = 0; j < this.obstacles.length; j++){
-     this.obstacles[j].x += 3; 
-     this.obstacles[j].y += 2; 
+     
+     
+    /* horizontal */
+        if ( this.obstacles[j].x < this.player.x ){
+            this.obstacles[j].y -=0.1;
+         }
+         else if ( this.obstacles[j].x > this.player.x ){
+            this.obstacles[j].y +=0.1;
+         }
+
+     
+
+      /* vertical */
+      if ( this.obstacles[j].y < this.player.y ){
+        this.obstacles[j].y +=0.5;
+     }
+      else if ( this.obstacles[j].y > this.player.y ){
+        this.obstacles[j].y -=0.5;
+     }
+
+     
      this.obstacles[j].draw(); 
     } 
     
@@ -228,12 +227,12 @@ updateSnitch () {
     if (this.frames % 60 === 0){   
 
         let x = this.width;
-        let minX = 100;
+        let minX = 400;
         let maxX = 800;
         let newX = Math.floor(Math.random()* (maxX - minX + 1)+ minX);
 
-        let minY = 100;
-        let maxY = 450;
+        let minY = 30;
+        let maxY = 350;
 
         let newY = Math.floor(Math.random()* (maxY - minY + 1)+ minY); 
 
@@ -244,7 +243,7 @@ updateSnitch () {
 }
 
 updateEnemy () {
-    /* To move and draw the obstacles */
+    
 
 /* EXPERT LEVEL */
 
@@ -252,15 +251,15 @@ updateEnemy () {
         console.log('expert');
         //horizontal
         if(this.enemyPlayer.x < this.player.x) {
-            this.enemyPlayer.x += 1.2;
+            this.enemyPlayer.x += 1;
         } else {
             this.enemyPlayer.x -= 1;
         }
         //vertically
         if(this.enemyPlayer.y < this.player.y) {
-            this.enemyPlayer.y += 1.5;
+            this.enemyPlayer.y += 1;
         } else {
-            this.enemyPlayer.y -= 1.2;
+            this.enemyPlayer.y -= 1;
         }
 
         this.enemyPlayer.draw();
@@ -274,13 +273,13 @@ updateEnemy () {
     
         //horizontal
         if(this.enemyPlayer.x < this.player.x) {
-            this.enemyPlayer.x += 1;
+            this.enemyPlayer.x += 0.8;
         } else {
             this.enemyPlayer.x -= 0.8;
         }
         //vertically
         if(this.enemyPlayer.y < this.player.y) {
-            this.enemyPlayer.y += 1;
+            this.enemyPlayer.y += 0.8;
         } else {
             this.enemyPlayer.y -= 0.8;
         }
@@ -435,8 +434,10 @@ checkSeeker = () => {
     const playersCrush = this.player.crashWith(this.enemyPlayer);
 
     if (playersCrush) {
-        this.player.x = 100;
-        this.enemyPlayer.x = 600
+
+        this.player.x = 20;
+        this.player.y = 200;
+        this.enemyPlayer.x = 500;
         this.playerEnergy.pop()
         
     }
@@ -530,9 +531,10 @@ updateGameArea = () => {
     this.checkGameOver();
     this.checkMagicBonus();
     this.displayResults();
-    this.player.newPos();
-    this.player.draw ();
-   
+
     
-    }
+    this.player.newPos();
+    this.player.draw (); 
+    
+     }
 }

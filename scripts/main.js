@@ -6,7 +6,13 @@ const cWidth = canvas.width;
 const cHeight = canvas.height; 
 
 
-const player = new Component(70, 70, './docs/assets/images/griffyndor_seeker.png', 450, 300, ctx);
+
+
+let playerDirection;
+
+
+const player = new Component(70, 70, './docs/assets/images/player_left.png', 50, 200, ctx);
+
 
 /* const energyOne = new Component (40, 30, './docs/assets/images/bolt.png', 790, 70, this.ctx); */
 
@@ -106,20 +112,28 @@ expertBtn.addEventListener('click', () => {
 });
 
 
-/* Event listener for when we PRESS the key */
+/* KEYS */
+
+
+
 document.addEventListener('keydown', (e) => { /* keydown - when someone clicks a key */
     switch (e.code){ /* code - is a property of events (e) */
         case 'ArrowUp' :
-            player.speedY -=1.5;
+            player.speedY -=1;
+            playerDirection= 'up';
             break;
         case 'ArrowDown' :
-            player.speedY +=1.5;
+            player.speedY +=1;
+            playerDirection = 'down';
             break;
         case 'ArrowRight' :
-            player.speedX +=1.5;
+            player.speedX +=1.1;
+            playerDirection = 'right';
+            
             break;
         case 'ArrowLeft' :
-            player.speedX -=1.5;
+            player.speedX -=1.1;
+            playerDirection = 'left';
             break;
         /* case 'Space' :
             drawMagic(); */

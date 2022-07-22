@@ -12,20 +12,26 @@ class Component {
         img.addEventListener('load', () => {})
         img.src = src; 
         this.img = img;
+
+        
     }
 
     /* Acceleration */
 
     newPos(){
-        /* this.x = (this.x + this.speedX) % 1000;
-        this.y = (this.y + this.speedY) % 500; */
-        this.x += this.speedX;
-        this.y += this.speedY;
+        this.x = (this.x + this.speedX) % 800;
+        this.y = (this.y + this.speedY) % 450;
+       /*  this.x += this.speedX;
+        this.y += this.speedY; */
     }
 
     draw(){
-    this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
+
+     this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+
+     }
+
+    
 
     /* collitions */
 
@@ -52,6 +58,10 @@ class Component {
         this.left() > obstacle.right()  
         ); 
     }
+
+   
+
+
 }
 
 class Messages {
