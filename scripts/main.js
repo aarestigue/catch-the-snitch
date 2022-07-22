@@ -12,7 +12,7 @@ let playerDirection;
 let useMagic = false;
 
 
-const player = new Component(70, 70, './docs/assets/images/player_left.png', 50, 200, ctx);
+const player = new Component(100, 80, './docs/assets/images/player_right.png', 50, 200, ctx);
 
 
 /* const energyOne = new Component (40, 30, './docs/assets/images/bolt.png', 790, 70, this.ctx); */
@@ -32,8 +32,17 @@ window.onload =  () => {
     }   
 }
 
+/* SOUNDS: YOU WON THE GAME */
 
-/* start game with button */
+let audioVictory = new Audio ("./docs/assets/sounds/victory.mp3")
+    
+/* window.onload =  () => {
+    if (!game) {
+    audioTag.play();
+    audioTag.loop = true;
+    }   
+} */
+/* START BUTTON */
 
 const startBtn = document.getElementById('start');
 
@@ -45,6 +54,32 @@ startBtn.addEventListener('click', () => {
         audioTag.pause();
         canvas.classList.remove('first-background');
         canvas.classList.add('second-background');
+
+        
+        
+    }
+
+    else if (game && !game.isRunning) {
+        /* when crashed */
+        game.reset();
+    }
+    
+})
+
+/* STOP BUTTON */
+
+const stopBtn = document.getElementById('stop');
+
+stopBtn.addEventListener('click', () => {
+    if (game){
+
+        game.clear();
+        game.stop();
+        audioVictory.pause();
+        
+        audioTag.play();
+        canvas.classList.remove('second-background');
+        canvas.classList.add('first-background');
 
         
         

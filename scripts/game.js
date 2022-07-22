@@ -36,6 +36,8 @@ class Game {
         this.wand = '';
         this.wandTimer = 0;
         this.wandDirection = '';
+
+        this.audioVictory = audioVictory;
         
 }
 
@@ -82,6 +84,8 @@ clear () {
     }
 
 stop () {
+    audioVictory.pause();
+    audioTag.play();
     clearInterval(this.interval);
     this.isRunning = false;
 }
@@ -394,6 +398,8 @@ updateDementor (){
 checkGameOver = () => {
     if (this.snitchCatched === true || this.timer === 0 || !this.playerHasEnergy) {
         this.stop();
+        this.ctx.classList.remove('second-background');
+        this.ctx.classList.add('third-background');
     }
 
 }
@@ -406,6 +412,15 @@ results = () => {
         this.ctx.fillStyle = 'black';
         this.ctx.fillText(`You won!`, 350, 250);
         console.log('you won');
+
+        this.audioVictory.play();
+        this.audioVictory.loop = true;
+
+        this.ctx.classList.remove('second-background');
+        this.ctx.classList.add('third-background');
+
+        
+
     }
 
     else if (!this.isRunning && this.points < this.enemyPoints) {
@@ -462,7 +477,7 @@ playerScore = () => {
         else if (bonusCatch){
                 this.points += 10;
                 this.goalBonus = [];
-                this.message = 'You caught a bonus';
+                this.message = 'You caught a bonus!';
                 this.messageTimer = 120;
 
                 /* Popups.displayGoals(); */
@@ -472,7 +487,7 @@ playerScore = () => {
 
     this.ctx.font = '16px sans-serif';
     this.ctx.fillStyle = 'black';
-    this.ctx.fillText(`My Score: ${this.points}`, 50, 50);
+    this.ctx.fillText(`Gryffindor: ${this.points}`, 50, 50);
     
 
 }
@@ -482,7 +497,7 @@ enemyScore (){
 
     this.ctx.font = '16px sans-serif';
     this.ctx.fillStyle = 'black';
-    this.ctx.fillText(`Enemy Score: ${enemyPoints}`, 200, 50);
+    this.ctx.fillText(`Slytherin: ${enemyPoints}`, 200, 50);
 
     this.enemyPoints = enemyPoints;
 
@@ -590,8 +605,8 @@ checkMessages(){
 /* Wand time in screen */
 checkWands(){
     if(this.wand && this.wandTimer){
-        let wandX = this.player.x + 15;
-        let wandY = this.player.y + 70;
+        let wandX = this.player.x + 60;
+        let wandY = this.player.y + 30;
 
         if (this.wandDirection = 'right'){
         const newWand = new Component(40, 20,'docs/assets/images/wand_right_attack.png', wandX, wandY, this.ctx);
