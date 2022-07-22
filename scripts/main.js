@@ -34,7 +34,9 @@ window.onload =  () => {
 
 /* SOUNDS: YOU WON THE GAME */
 
-let audioVictory = new Audio ("./docs/assets/sounds/victory.mp3")
+let audioVictory = new Audio ("./docs/assets/sounds/victory.mp3");
+
+let magicSound = new Audio ("./docs/assets/sounds/spell_sound.mp3");
     
 /* window.onload =  () => {
     if (!game) {
@@ -78,8 +80,8 @@ stopBtn.addEventListener('click', () => {
         audioVictory.pause();
         
         audioTag.play();
-        canvas.classList.remove('second-background');
-        canvas.classList.add('first-background');
+        /* canvas.classList.remove('second-background');
+        canvas.classList.add('first-background'); */
 
         
         
@@ -176,6 +178,7 @@ document.addEventListener('keydown', (e) => { /* keydown - when someone clicks a
         
         useMagic = true;
         game.attackEnemy();
+        
         break;
     }
 })
@@ -184,5 +187,6 @@ document.addEventListener('keydown', (e) => { /* keydown - when someone clicks a
 document.addEventListener('keyup', (e) => {
     player.speedX = 0;
     player.speedY = 0
+    
 });
   

@@ -38,6 +38,7 @@ class Game {
         this.wandDirection = '';
 
         this.audioVictory = audioVictory;
+        this.magicSound = magicSound;
         
 }
 
@@ -193,6 +194,8 @@ attackEnemy () {
                 this.wand = 'true';
                 this.wandTimer = 30;  
                 this.wandDirection = 'right';
+
+                this.magicSound.play();
                 
             }    
 
@@ -203,6 +206,8 @@ attackEnemy () {
                 this.wand = 'true';
                 this.wandTimer = 30;  
                 this.wandDirection = 'left';
+
+                this.magicSound.play();
                 
             }
         }
@@ -217,6 +222,8 @@ attackEnemy () {
                 this.wand = 'true';
                 this.wandTimer = 30;  
                 this.wandDirection = 'right';
+
+                this.magicSound.play();
                 
             }    
 
@@ -227,6 +234,8 @@ attackEnemy () {
                 this.wand = 'true';
                 this.wandTimer = 30;  
                 this.wandDirection = 'left';
+
+                this.magicSound.play();
             }
         }
 
