@@ -30,8 +30,12 @@ class Game {
         this.playerDirection = playerDirection;
         this.useMagic = useMagic;
 
-        this.message = ''
+        this.message = '';
         this.messageTimer = 0;
+
+        this.wand = '';
+        this.wandTimer = 0;
+        this.wandDirection = '';
         
 }
 
@@ -170,22 +174,32 @@ attackEnemy () {
     let pushEnemyForward = this.player.x + 400;
     let pushEnemyBack = this.player.x - 400;
 
+    
 
 
-    if (this.difficulty === 1){
+
+    if (this.difficulty === 1 && this.playerMagic.length > 0){
 
         /* Attack dementor */
         if(this.dementor.y < distanciaMax || this.dementor.y > distanciaMin){
             if(this.dementor.x > this.player.x) {
                 this.dementor.x = pushEnemyForward;
                 this.dementor.y = 200;
-                console.log('push dementor')
+
+                this.wand = 'true';
+                this.wandTimer = 30;  
+                this.wandDirection = 'right';
+                
             }    
 
             else if (this.dementor.x < this.player.x){
                 this.dementor.x = pushEnemyBack;
                 this.dementor.y = 200;
-                console.log('push dementor')
+                
+                this.wand = 'true';
+                this.wandTimer = 30;  
+                this.wandDirection = 'left';
+                
             }
         }
 
@@ -195,16 +209,24 @@ attackEnemy () {
             if(this.enemyPlayer.x > this.player.x) {
                 this.enemyPlayer.x = pushEnemyForward;
                 this.enemyPlayer.y = 200;
-                console.log('push enemyPlayer')
+                
+                this.wand = 'true';
+                this.wandTimer = 30;  
+                this.wandDirection = 'right';
+                
             }    
 
             else if (this.enemyPlayer.x < this.player.x){
                 this.enemyPlayer.x = pushEnemyBack;
                 this.enemyPlayer.y = 200;
-                console.log('push dementor')
+                
+                this.wand = 'true';
+                this.wandTimer = 30;  
+                this.wandDirection = 'left';
             }
         }
 
+        this.playerMagic.pop();
     }
 
 }
@@ -565,6 +587,27 @@ checkMessages(){
     }
 }
 
+/* Wand time in screen */
+checkWands(){
+    if(this.wand && this.wandTimer){
+        let wandX = this.player.x + 15;
+        let wandY = this.player.y + 70;
+
+        if (this.wandDirection = 'right'){
+        const newWand = new Component(40, 20,'docs/assets/images/wand_right_attack.png', wandX, wandY, this.ctx);
+        newWand.draw();
+        this.wandTimer--
+        console.log('right wand');
+        }
+
+        else if (this.wandDirection = 'left'){
+            const newWand = new Component(40, 20,'docs/assets/images/wand_left_attack.png', wandX, wandY, this.ctx);
+            newWand.draw();
+            this.wandTimer--
+        }
+    }
+}
+
 /* SOUNDS */
 
 /* mainSound() {
@@ -596,7 +639,8 @@ updateGameArea = () => {
 
     /* this.attackEnemy(); */
 
-    this.checkMessages()
+    this.checkMessages();
+    this.checkWands();
     this.checkSeeker();
     this.checkGameOver();
     this.checkMagicBonus();
