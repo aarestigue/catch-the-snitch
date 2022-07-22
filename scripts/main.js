@@ -9,6 +9,7 @@ const cHeight = canvas.height;
 
 
 let playerDirection;
+let useMagic = false;
 
 
 const player = new Component(70, 70, './docs/assets/images/player_left.png', 50, 200, ctx);
@@ -135,8 +136,12 @@ document.addEventListener('keydown', (e) => { /* keydown - when someone clicks a
             player.speedX -=1.1;
             playerDirection = 'left';
             break;
-        /* case 'Space' :
-            drawMagic(); */
+
+        case 'Space' :
+        
+        useMagic = true;
+        game.attackEnemy();
+        break;
     }
 })
 

@@ -28,6 +28,7 @@ class Game {
         this.isRunning = false;
         this.difficulty = difficulty;
         this.playerDirection = playerDirection;
+        this.useMagic = useMagic;
 
         this.message = ''
         this.messageTimer = 0;
@@ -44,13 +45,13 @@ start = () => {
     this.isRunning = true;
     /* this.snitch = new Component(40, 40,'docs/assets/images/final_snitch.png', Math.floor(Math.random() * this.width) ,Math.floor( Math.random() * this.height), this.ctx) */
     
-    this.enemyPlayer = new Component(70, 70,'docs/assets/images/slytherin_player.png', 400 , 200, this.ctx)
+    this.enemyPlayer = new Component(70, 70,'docs/assets/images/slytherin_player.png', 400 , 350, this.ctx)
     this.createEnergy();
-    /* this.createMagic(); */
+    this.createMagic();
 
     if (this.difficulty === 1){
-        console.log('dementor');
-        this.dementor =  new Component(70, 70,'docs/assets/images/dementor.png', 100, 100, this.ctx)  
+        
+        this.dementor =  new Component(70, 70,'docs/assets/images/dementor.png', 410, 150, this.ctx)  
     }
     
     }
@@ -104,7 +105,7 @@ updateEnergy(){
 
 /* MAGIC */
 
-getMagic(){
+/* getMagic(){
 
     if (this.difficulty === 1){
     for (let h = 0; h < this.magicBonus.length; h++){
@@ -131,7 +132,7 @@ getMagic(){
         
     }
   }
-} 
+}  */
 
 createMagic(){
 
@@ -140,12 +141,9 @@ createMagic(){
     let x = 650;
     let newX = x + this.playerMagic.length;
         
-    this.playerMagic.push( new Component (40, 30, 'docs/assets/images/magicb.png', newX, 110, this.ctx))
-
-   /*  this.playerMagic.push(new Component (40, 30, 'docs/assets/images/magicb.png', x, 110, this.ctx))
-
-
-    this.playerMagic.push(new Component (40, 30, 'docs/assets/images/magicb.png', 690, 110, this.ctx)) */
+    this.playerMagic.push( new Component (40, 30, 'docs/assets/images/wand_bonus.png', 650, 110, this.ctx));
+    this.playerMagic.push(new Component (40, 30, 'docs/assets/images/wand_bonus.png', 670, 110, this.ctx));
+    this.playerMagic.push(new Component (40, 30, 'docs/assets/images/wand_bonus.png', 690, 110, this.ctx));
 
     
     }
@@ -164,6 +162,53 @@ updateMagic(){
 }
 
 }
+
+attackEnemy () {
+    let distanciaMax = this.player.y + 30;
+    let distanciaMin = this.player.y - 30;
+
+    let pushEnemyForward = this.player.x + 400;
+    let pushEnemyBack = this.player.x - 400;
+
+
+
+    if (this.difficulty === 1){
+
+        /* Attack dementor */
+        if(this.dementor.y < distanciaMax || this.dementor.y > distanciaMin){
+            if(this.dementor.x > this.player.x) {
+                this.dementor.x = pushEnemyForward;
+                this.dementor.y = 200;
+                console.log('push dementor')
+            }    
+
+            else if (this.dementor.x < this.player.x){
+                this.dementor.x = pushEnemyBack;
+                this.dementor.y = 200;
+                console.log('push dementor')
+            }
+        }
+
+        /* Attack enemy player */
+
+        if(this.enemyPlayer.y < distanciaMax || this.enemyPlayer.y > distanciaMin){
+            if(this.enemyPlayer.x > this.player.x) {
+                this.enemyPlayer.x = pushEnemyForward;
+                this.enemyPlayer.y = 200;
+                console.log('push enemyPlayer')
+            }    
+
+            else if (this.enemyPlayer.x < this.player.x){
+                this.enemyPlayer.x = pushEnemyBack;
+                this.enemyPlayer.y = 200;
+                console.log('push dementor')
+            }
+        }
+
+    }
+
+}
+
 /* BONUS*/
 
 updateBonus(){
@@ -251,15 +296,15 @@ updateEnemy () {
         console.log('expert');
         //horizontal
         if(this.enemyPlayer.x < this.player.x) {
-            this.enemyPlayer.x += 1;
+            this.enemyPlayer.x += 1.1;
         } else {
-            this.enemyPlayer.x -= 1;
+            this.enemyPlayer.x -= 1.1;
         }
         //vertically
         if(this.enemyPlayer.y < this.player.y) {
-            this.enemyPlayer.y += 1;
+            this.enemyPlayer.y += 1.1;
         } else {
-            this.enemyPlayer.y -= 1;
+            this.enemyPlayer.y -= 1.1;
         }
 
         this.enemyPlayer.draw();
@@ -297,15 +342,15 @@ updateDementor (){
 
         //horizontal
         if(this.dementor.x < this.player.x) {
-            this.dementor.x += 0.5;
+            this.dementor.x += 0.3;
         } else {
-            this.dementor.x -= 0.5;
+            this.dementor.x -= 0.3;
         }
         //vertically
         if(this.dementor.y < this.player.y) {
-            this.dementor.y += 0.5;
+            this.dementor.y += 0.3;
         } else {
-            this.dementor.y -= 0.5;
+            this.dementor.y -= 0.3;
         }
 
         this.dementor.draw();
@@ -449,6 +494,29 @@ checkSeeker = () => {
     
 }
 
+checkDementor = () => {
+
+    if (this.difficulty === 1){
+
+    const dementorCrush = this.player.crashWith(this.dementor);
+
+    if (dementorCrush) {
+
+        this.player.x = 20;
+        this.player.y = 200;
+        this.dementor.x = 400;
+        this.playerEnergy.pop()
+        
+    }
+
+    else if (this.playerEnergy.length === 0){
+        
+        return this.playerHasEnergy = false;
+    }
+}
+    
+}
+
 checkMagicBonus = () => {
 
     const magicCatched = this.magicBonus.some((magic) => { 
@@ -520,16 +588,19 @@ updateGameArea = () => {
     this.updateDementor();
     this.updateEnemy();
     this.updateBonus();
-    this.getMagic();
+    /* this.getMagic(); */
     
     this.updateEnergy();
     this.updateSnitch();
     this.updateMagic();
 
+    /* this.attackEnemy(); */
+
     this.checkMessages()
     this.checkSeeker();
     this.checkGameOver();
     this.checkMagicBonus();
+    this.checkDementor();
     this.displayResults();
 
     
